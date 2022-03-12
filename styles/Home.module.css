@@ -1,6 +1,9 @@
 .mainContainer{
   height: 100vh;
   padding: 0 16px;
+  background-color: #141a1e;
+  color: white;
+  overflow: hidden;
 }
 
 .container{
@@ -12,7 +15,7 @@
 .navHeader{
   height: 2.5rem;
   width: 100%;
-  background-color: aqua;
+  padding-top: 25px;
 }
 
 .mobileNav{
@@ -31,9 +34,7 @@
 }
 
 .desktopHeader{
-  height: 100%;
-  width: 30%;
-  background-color: wheat;
+  width: 46%;
 }
 .headerConatiner{
   display: flex;
@@ -49,29 +50,46 @@
 .inputContainer{
   display: flex;
   height: 100%;
-  width: 80%;
-  justify-content: center;
+  width: 70%;
+  justify-content: flex-start;
   align-items: center;
-  padding: 0 10px;
+  border-radius: 16px;
+  background-color: #202A30;
+  padding: 5px 10px;
+  margin-right: 35px;
 }
 
 .inputContainer input{
   width: 100%;
   max-width: 300px;
+  color: #c7d2da;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.inputContainer svg{
+  margin: 0 10px;
+  max-height: 25px;
+  min-height: 25px;
+  color: #c7d2da;
 }
 
 .logo{
  display: flex;
  height: 100%;
- width: 6.5rem;
- justify-content: space-between;
+ flex:1;
+ justify-content: flex-start;
  align-items: center;
-padding-left: 10px;
+ padding-left: 10px;
+ margin-right: 20px;
 }
 
 .logo p{
   font-weight: 600;
-  font-size: 20px;
+  font-size: 25px;
   padding-left: 5px;
 }
 
@@ -83,6 +101,7 @@ padding-left: 10px;
   width: 20px;
   color: white;
 }
+
 .icon:hover{
   height: 20px;
   width: 20px;
@@ -114,29 +133,31 @@ padding-left: 10px;
   justify-content: flex-end;
   align-items: flex-start;
   padding: 50px 0;
-  background-color: blueviolet;
+  margin-left: 50px;
+  margin-top: 60px;
 }
 
 .heroBlock{
   max-width: 900px;
   text-align: left;
-  background-color: aquamarine;
+  margin: 0;
 }
 
 .heroBlock h1 {
-  font-size: 36px;
+  font-size: 46px;
   font-weight: 600;
+  margin: 0;
 }
 
 .heroBlock p{
   font-size: 24px;
   color: #c7d2da;
+  margin: 25px 0;
 }
 
 .buttonContainer{
   height: 15%;
   width: 100%;
-  background-color: bisque;
 }
 
 .buttonContainer button{
@@ -165,6 +186,10 @@ padding-left: 10px;
     display: flex;
     justify-content: center;
   }
+  .heroContainer{
+    margin-left: 0px;
+  }
+
 }
 
 /*Hero*/

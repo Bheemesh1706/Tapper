@@ -31,13 +31,18 @@ const Home:React.FC = () => {
           <section  className={`${styles.desktopHeader} ${styles.headerConatiner} `}>
 
               <div className={`${styles.logo}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" className={`${styles.icon}`} stroke="currentColor" strokeWidth={2}>
+                    <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24"  style={{transform:  "scale(1.3)",color:"white",height:"20px"}} stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                     <p>Tapper</p>
               </div>
               <div className={`${styles.inputContainer}`}>
-                    <input >
+
+                    <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+          
+                    <input placeholder='Search by account,token,ENS...' >
                     </input>
               </div>
             
