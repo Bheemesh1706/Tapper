@@ -16,17 +16,18 @@
 }
 
 .mobileNav{
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: center;
   height: 100%;
 }
 .desktopNav{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   min-width: 100%;
+  padding: 0 25px;
 }
 
 .desktopHeader{
@@ -91,5 +92,79 @@ padding-left: 10px;
 }
 
 
+@media all and (max-width: 600px)
+{
+  .mobileNav{
+    display: flex;
+  }
+  .desktopNav{
+    display: none;
+  }
+}
+
 
 /*Navbar*/
+
+/*Hero*/
+.heroContainer{
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 50px 0;
+  background-color: blueviolet;
+}
+
+.heroBlock{
+  max-width: 900px;
+  text-align: left;
+  background-color: aquamarine;
+}
+
+.heroBlock h1 {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.heroBlock p{
+  font-size: 24px;
+  color: #c7d2da;
+}
+
+.buttonContainer{
+  height: 15%;
+  width: 100%;
+  background-color: bisque;
+}
+
+.buttonContainer button{
+  height: 54px;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 500;
+  background: #784ffe;
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  transition: 0.2s;
+}
+
+.buttonContainer button:hover{
+  box-shadow: 0px 0px 0px 3px rgba(120,79,254,0.6);
+}
+
+
+@media all and (max-width: 600px)
+{
+  .heroBlock{
+    text-align: center;
+  }
+  .buttonContainer{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/*Hero*/
