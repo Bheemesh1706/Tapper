@@ -1,0 +1,120 @@
+.mainContainer{
+    height: 100vh;
+    padding: 0 16px;
+    background-color: #141a1e;
+    color: white;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .container{
+    padding: 0 16px;
+  }
+
+  
+  /*Side NavBar*/
+    .sideNavbar{
+        height: 100%;
+        width: 30%;
+        border-right: 0.05px solid #CBC3E3 ;
+    }
+  /*Side Navbar*/
+
+  /* Middle Container */
+    .middleContainer{
+        height: 100%;
+        width: 734px;
+        max-width: 50%;
+        border-right: 0.05px solid #CBC3E3;
+    }
+
+    .inputContainer{
+        display: flex;
+        height: 100%;
+        width: 40%;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 16px;
+        background-color: #202A30;
+        padding: 20px 10px;
+        margin-right: 25px;
+      }
+      
+      .inputContainer input{
+        width: 100%;
+        max-width: 250px;
+        color: #c7d2da;
+        font-size: 16px;
+        font-weight: 500;
+        outline: none;
+        border: none;
+        background-color: transparent;
+      }
+      
+      .inputContainer svg{
+        margin: 0 10px;
+        max-height: 25px;
+        min-height: 25px;
+        color: #c7d2da;
+      }
+      
+      .navContainer{
+          height: 25px;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 25px 0;
+      }
+
+      .navContainer p{
+          margin-left: 25px;
+      }
+
+      .bodyContainer{
+          height: 100%;
+          width: 100%;
+  
+          
+      }
+
+      .bodyContainer p{
+        margin-left: 25px;
+    }
+
+      .bodyHeader{
+          height: 30%;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .bodyMain{
+          height: 70%;
+          width: 100%;
+      }
+
+      .bodyNavContainer{
+          height: 15%;
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          border-bottom: 1px solid white;
+          padding-top: 32px;
+      }
+
+      .bodyNavContainer p{
+          padding-bottom: 10px;
+          border-bottom: 3px solid white;
+      }
+
+      .infoContainer{
+          height: 50%;
+          width: 50%;
+          background-color: #202A30;
+          margin-right: 25px;
+          border-radius: 16px;
+      }
+  /* Middle Container */
