@@ -1,13 +1,44 @@
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 import styles from '../styles/Home.module.css';
-
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button
+} from '@chakra-ui/react'
+import { Connect } from '../src/web3/web3';
 
 const Home:React.FC = () => {
 
   const [list,setList] = useState<string[]>(["Address Book","Learn","Build"]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   return (
   <div className={styles.mainContainer}>
+
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+           <h1>Hi</h1>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant='ghost'>Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     <div className={`${styles.container} ${styles.navHeader}`}>
       
         <nav className={`${styles.mobileNav}`}>
@@ -16,9 +47,13 @@ const Home:React.FC = () => {
                   <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
               </svg>
 
-              <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" className={`${styles.icon}`} stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 96 96">
+                          <g id="Group_3" data-name="Group 3" transform="translate(-27 -19)">
+                            <circle id="Ellipse_8" data-name="Ellipse 8" cx="48" cy="48" r="48" transform="translate(27 19)" fill="#0776d1"/>
+                            <path id="Path_9" data-name="Path 9" d="M8,0H56L48,16H0Z" transform="translate(47 44)" fill="#fff"/>
+                            <path id="Path_10" data-name="Path 10" d="M8,0H56L48,16H0Z" transform="translate(83 44) rotate(90)" fill="#fff"/>
+                          </g>
+                </svg>
 
               <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor" className={`${styles.icon}`} strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -31,9 +66,14 @@ const Home:React.FC = () => {
           <section  className={`${styles.desktopHeader} ${styles.headerConatiner} `}>
 
               <div className={`${styles.logo}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24"  style={{transform:  "scale(1.3)",color:"white",height:"20px"}} stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 96 96">
+                          <g id="Group_3" data-name="Group 3" transform="translate(-27 -19)">
+                            <circle id="Ellipse_8" data-name="Ellipse 8" cx="48" cy="48" r="48" transform="translate(27 19)" fill="#0776d1"/>
+                            <path id="Path_9" data-name="Path 9" d="M8,0H56L48,16H0Z" transform="translate(47 44)" fill="#fff"/>
+                            <path id="Path_10" data-name="Path 10" d="M8,0H56L48,16H0Z" transform="translate(83 44) rotate(90)" fill="#fff"/>
+                          </g>
                     </svg>
+
                     <p>Tapper</p>
               </div>
               <div className={`${styles.inputContainer}`}>
@@ -50,7 +90,7 @@ const Home:React.FC = () => {
 
           <section  className={`${styles.desktopHeader} ${styles.headerConatiner}`} style={{width: "250px"}}>
             {
-              list.map((val)=>(<p>{val}</p>))
+              list.map((val,index)=>(<p key={index}>{val}</p>))
             }
           </section>
 
@@ -63,7 +103,9 @@ const Home:React.FC = () => {
                 <p>Manage your entire web3 portfolio from DeFi to NFTs and whatever comes next. Invest in the latest opportunities from one convenient place.</p>
             </section>
             <section className={`${styles.buttonContainer}`}>
-                <button>Connect Wallet</button>
+                <button onClick={()=>{Connect().then((e)=>{
+                  console.log(e)
+                })}}>Connect Wallet</button>
             </section>
     </div>
   </div>
