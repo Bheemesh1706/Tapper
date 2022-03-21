@@ -1,44 +1,24 @@
-import { useState,useEffect} from 'react';
+import { useState,useEffect, FC} from 'react';
 import styles from '../styles/Home.module.css';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Button
-} from '@chakra-ui/react'
-import { Connect } from '../src/web3/web3';
+import { Connect ,getAccounts,EthBalance,EthTokenBalance} from '../src/web3/web3';
+
+
 
 const Home:React.FC = () => {
 
   const [list,setList] = useState<string[]>(["Address Book","Learn","Build"]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+  
+  
+  useEffect( () =>{
+      getAccounts().then((e)=>{
+        EthBalance(e);
+        EthTokenBalance(e,'0x6b175474e89094c44da98b954eedeac495271d0f');
+      });
+  },[])
 
   return (
   <div className={styles.mainContainer}>
 
-    <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-           <h1>Hi</h1>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant='ghost'>Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     <div className={`${styles.container} ${styles.navHeader}`}>
       
         <nav className={`${styles.mobileNav}`}>
@@ -103,9 +83,7 @@ const Home:React.FC = () => {
                 <p>Manage your entire web3 portfolio from DeFi to NFTs and whatever comes next. Invest in the latest opportunities from one convenient place.</p>
             </section>
             <section className={`${styles.buttonContainer}`}>
-                <button onClick={()=>{Connect().then((e)=>{
-                  console.log(e)
-                })}}>Connect Wallet</button>
+                <button onClick={()=>{Connect()}}>Connect Wallet</button>
             </section>
     </div>
   </div>
