@@ -9,7 +9,7 @@
 .container{
   padding: 0 16px;
 }
-
+ 
 /*Navbar*/
 
 .navHeader{
@@ -141,6 +141,7 @@
   max-width: 900px;
   text-align: left;
   margin: 0;
+  
 }
 
 .heroBlock h1 {

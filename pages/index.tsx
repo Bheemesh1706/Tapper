@@ -11,8 +11,9 @@ const Home:React.FC = () => {
   
   useEffect( () =>{
       getAccounts().then((e)=>{
-        EthBalance(e);
-        EthTokenBalance(e,'0x6b175474e89094c44da98b954eedeac495271d0f');
+        console.log(e);
+        // EthBalance(e);
+        // EthTokenBalance(e,'0x6b175474e89094c44da98b954eedeac495271d0f');
       });
   },[])
 
@@ -65,7 +66,7 @@ const Home:React.FC = () => {
                     <input placeholder='Search by account,token,ENS...' >
                     </input>
               </div>
-            
+             
           </section>
 
           <section  className={`${styles.desktopHeader} ${styles.headerConatiner}`} style={{width: "250px"}}>

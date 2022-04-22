@@ -16,8 +16,86 @@
     .sideNavbar{
         height: 100%;
         width: 30%;
-        border-right: 0.05px solid #CBC3E3 ;
+        border-right: 0.05px solid #CBC3E3;
+        display: flex;
+        flex-direction: row-reverse;
     }
+
+    .desktopNav{
+        height: 100%;
+        width: 60%;
+    }
+
+    .head{
+      height: 40%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+     align-items: center;
+    }
+
+    .headList{
+      height: 40px;
+      width: 90%;
+      display: flex;
+      align-items: center;
+  
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 16px;
+    }
+
+    .headList:hover{
+      background-color: #202A30;
+      transition: 0.5s;
+    }
+
+    .headList svg {
+      height: 25px;
+     margin-left: 5px;
+     margin-right: 10px;
+    }
+    .headList a {
+      padding-top: 10px;
+      
+    } 
+
+    .logo{
+      height: 40px;
+      width: 90%;
+      display: flex;
+      align-items: flex-start;
+      margin-left: 10px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+     }
+     
+     .logo p{
+       font-weight: 600;
+       font-size: 16px;
+       padding-left: 5px;
+       padding-top: 5px;
+
+     }
+     
+      @media all and (max-width: 960px)
+      {
+        
+        .logo p {
+          display: none;
+        }
+        .logo{
+          justify-content: center;
+          margin-left: 0;
+        }
+
+        .headList a {
+          display: none;
+        }
+        .headList {
+          justify-content: center;
+        }
+      }
   /*Side Navbar*/
 
   /* Middle Container */
@@ -74,9 +152,7 @@
 
       .bodyContainer{
           height: 100%;
-          width: 100%;
-  
-          
+          width: 100%;        
       }
 
       .bodyContainer p{
@@ -84,17 +160,76 @@
     }
 
       .bodyHeader{
-          height: 30%;
+          height: 25%;
           width: 100%;
           display: flex;
-          justify-content: space-between;
+          justify-content: space-around;
           align-items: center;
       }
 
       .bodyMain{
           height: 70%;
-          width: 100%;
+          width: 100%; 
       }
+
+
+      @media all and (max-width: 600px)
+      {
+
+        .bodyContainer p{
+          margin-left: 0;
+          margin-right: 25px;
+      }
+       .bodyHeader{
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+       }
+
+      }
+
+      /*Portfolio*/
+      .portfolio{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .portfolioCard{
+        height: 75px;
+        margin: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 16px;
+        width: 100%;
+        padding: 25px;
+        background-color: #202A30;
+      }
+
+      .portfolioCard:hover{
+        box-shadow: 0px 0px 5px 2.5px gray;
+        transition: 0.05s;
+      }
+
+      @media all and (max-width: 600px)
+      {
+        .portfolio{
+          justify-content: center;
+        }
+        .portfolioCard{
+          justify-content: center;
+          width: 50%;
+        }
+        .portfolioCard p{
+          display: none;
+        }
+
+      }
+
+
+      /*Portfolio*/
 
       .bodyNavContainer{
           height: 15%;
@@ -104,11 +239,14 @@
           align-items: center;
           border-bottom: 1px solid white;
           padding-top: 32px;
+          position: relative;
       }
 
       .bodyNavContainer p{
-          padding-bottom: 10px;
-          border-bottom: 3px solid white;
+         position: absolute;
+         padding:10px 15px;
+         bottom: -2.5px;
+         border-bottom: 3px solid white;
       }
 
       .infoContainer{
