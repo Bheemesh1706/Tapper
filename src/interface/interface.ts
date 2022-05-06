@@ -2,5 +2,6 @@ export interface PortfolioProps {
     margin: string,
     height: string,
     effects: boolean,
-    data: any
+    data: any,
+    balance:any
 }

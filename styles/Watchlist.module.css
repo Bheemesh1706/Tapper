@@ -196,7 +196,9 @@
         align-items: center;
         flex-direction: column;
         overflow-y: auto;
+        scrollbar-width: none;
       }
+
 
       .portfolioCard{
         display: flex;
@@ -207,6 +209,7 @@
         padding: 25px;
         background-color: #202A30;
       }
+
 
       .portfolioCardHover:hover{
         box-shadow: 0px 0px 5px 2.5px gray;

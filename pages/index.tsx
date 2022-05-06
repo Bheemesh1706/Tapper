@@ -117,7 +117,7 @@ const Home:React.FC = ({coinData}:any) => {
           <div className={`${styles.listItem}`}>
             {
               value.map((data:any)=>
-              (<PortfolioCard  margin='0px' height='50px' effects={false} data={data}/>))
+              (<PortfolioCard  margin='0px' height='50px' effects={false} data={data} balance={null}/>))
             }
           </div>
     </section>}

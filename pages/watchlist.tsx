@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from  '../styles/Watchlist.module.css';
 import {getAccounts} from '../src/web3/web3';
 import PortfolioCard from '../src/components/watchlist/PortfolioCard';
+import { EthTokenBalance,ContractAddress,EthBalance } from '../src/web3/web3';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 
@@ -10,14 +11,28 @@ function AddressBook({coinData}:any) {
   const [address,setAddress] = useState<String>('');
   const [head,setHead] = useState<String[]>(["Home","Address Book"]);
   const [footer,setFooter] = useState<String[]>(["List1","List2"]);
+  const [balance,setBalance] = useState<{}[]>([{}]);
+
   useEffect(()=>{
     getAccounts().then((e)=>{
+      setBalance([]);
       if(e!=undefined) 
       {
         setAddress(e.slice(0,5)+"..."+e.slice(e.length-4,e.length));
+
+        EthBalance(e).then((e)=>{
+          setBalance((balance)=>[...balance,{name:"Ethereum",balance:e}])
+        });
+        ContractAddress.map((data)=>{
+          EthTokenBalance(e,data.address).then((e)=>{
+            setBalance((balance)=>[...balance,{name: data.name,balance:e}])
+          })
+        })
       }
+
     });
-  },[])
+
+  },[]);
 
   return (
     <div className={styles.mainContainer}>
@@ -82,9 +97,7 @@ function AddressBook({coinData}:any) {
                           <p>Portfolio</p>  
                         </nav>
                         <div className={styles.portfolio}>
-                            { coinData.map((data:any)=>
-                                     (<PortfolioCard  margin='20px' height='75px' effects={true} data={data}/>))
-                            }
+                            { coinData.map((data:any)=>(<PortfolioCard  margin='20px' height='75px' effects={true} data={data} balance={balance}/>))}
                         </div>
                     </div>
             </div>
@@ -103,9 +116,10 @@ export const getServerSideProps: GetServerSideProps = async () =>{
       'X-RapidAPI-Host': 'coingecko.p.rapidapi.com',
       'X-RapidAPI-Key': '0aad8552camsh655068c6e2ac51dp1dcbadjsn6e64f695b2fc'
     },
-    params:{vs_currency: 'usd', order: 'market_cap_desc', per_page: '10', page: '1'}
+    params:{vs_currency: 'usd', order: 'market_cap_desc', per_page: '5', page: '1'}
   });
 
+    response.data.shift();
 
    return {
      props: { coinData: response.data
