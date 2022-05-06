@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styles from  '../styles/Watchlist.module.css';
 import {getAccounts} from '../src/web3/web3';
 import PortfolioCard from '../src/components/watchlist/PortfolioCard';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
 
-function AddressBook() {
+function AddressBook({coinData}:any) {
 
   const [address,setAddress] = useState<String>('');
   const [head,setHead] = useState<String[]>(["Home","Address Book"]);
@@ -65,6 +67,7 @@ function AddressBook() {
 
                         <input placeholder='Search by account,token,ENS...' >
                         </input>
+                        
                 </div>
             </nav>
             <div className={styles.bodyContainer}>
@@ -79,7 +82,9 @@ function AddressBook() {
                           <p>Portfolio</p>  
                         </nav>
                         <div className={styles.portfolio}>
-                              <PortfolioCard/>
+                            { coinData.map((data:any)=>
+                                     (<PortfolioCard  margin='20px' height='75px' effects={true} data={data}/>))
+                            }
                         </div>
                     </div>
             </div>
@@ -90,3 +95,20 @@ function AddressBook() {
 }
 
 export default AddressBook
+
+export const getServerSideProps: GetServerSideProps = async () =>{
+
+  const response = await axios.get("https://coingecko.p.rapidapi.com/coins/markets",{
+    headers:{
+      'X-RapidAPI-Host': 'coingecko.p.rapidapi.com',
+      'X-RapidAPI-Key': '0aad8552camsh655068c6e2ac51dp1dcbadjsn6e64f695b2fc'
+    },
+    params:{vs_currency: 'usd', order: 'market_cap_desc', per_page: '10', page: '1'}
+  });
+
+
+   return {
+     props: { coinData: response.data
+      }   
+    }
+}

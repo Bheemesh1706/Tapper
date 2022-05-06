@@ -1,21 +1,27 @@
 import { useState,useEffect, FC} from 'react';
 import styles from '../styles/Home.module.css';
 import { Connect ,getAccounts,EthBalance,EthTokenBalance} from '../src/web3/web3';
+import PortfolioCard from '../src/components/watchlist/PortfolioCard';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
 
-
-
-const Home:React.FC = () => {
+const Home:React.FC = ({coinData}:any) => {
 
   const [list,setList] = useState<string[]>(["Address Book","Learn","Build"]);
-  
-  
+  const [search,setSearch] = useState<boolean>(false);
+  const [value,setValue] = useState(coinData);
   useEffect( () =>{
       getAccounts().then((e)=>{
         console.log(e);
         // EthBalance(e);
         // EthTokenBalance(e,'0x6b175474e89094c44da98b954eedeac495271d0f');
       });
+      console.log(coinData)
   },[])
+
+  useEffect(()=>{
+      console.log(value);
+  },[value])
 
   return (
   <div className={styles.mainContainer}>
@@ -63,8 +69,24 @@ const Home:React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
           
-                    <input placeholder='Search by account,token,ENS...' >
-                    </input>
+                    <input placeholder='Search by Coin'  onFocus={()=>{
+                      setSearch(true);
+                    }} onBlur={()=>{
+                      setSearch(false);
+                    }}
+                    onChange={(e)=>{
+                      setValue([]);
+                      coinData.map((data:any)=>{
+                          if(data.id.includes(e.target.value.toLowerCase()))
+                          {
+                            setValue((value:any)=>[...value,data]);
+                          }
+                      })
+  
+                    }}/>
+                   
+
+                   
               </div>
              
           </section>
@@ -74,6 +96,8 @@ const Home:React.FC = () => {
               list.map((val,index)=>(<p key={index}>{val}</p>))
             }
           </section>
+
+         
 
         </nav>
     </div>
@@ -87,8 +111,37 @@ const Home:React.FC = () => {
                 <button onClick={()=>{Connect()}}>Connect Wallet</button>
             </section>
     </div>
+
+    {search && <section className={`${styles.listContainer}`}>
+          <p>Coins</p>
+          <div className={`${styles.listItem}`}>
+            {
+              value.map((data:any)=>
+              (<PortfolioCard  margin='0px' height='50px' effects={false} data={data}/>))
+            }
+          </div>
+    </section>}
   </div>
   )
 }
 
 export default Home
+
+
+
+export const getServerSideProps: GetServerSideProps = async () =>{
+
+  const response = await axios.get("https://coingecko.p.rapidapi.com/coins/markets",{
+    headers:{
+      'X-RapidAPI-Host': 'coingecko.p.rapidapi.com',
+      'X-RapidAPI-Key': '0aad8552camsh655068c6e2ac51dp1dcbadjsn6e64f695b2fc'
+    },
+    params:{vs_currency: 'usd', order: 'market_cap_desc', per_page: '10', page: '1'}
+  });
+
+
+   return {
+     props: { coinData: response.data
+      }   
+    }
+}
