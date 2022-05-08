@@ -5,6 +5,18 @@ import PortfolioCard from '../src/components/watchlist/PortfolioCard';
 import { EthTokenBalance,ContractAddress,EthBalance } from '../src/web3/web3';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  Input,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button
+} from '@chakra-ui/react'
 
 function AddressBook({coinData}:any) {
 
@@ -12,7 +24,11 @@ function AddressBook({coinData}:any) {
   const [head,setHead] = useState<String[]>(["Home","Address Book"]);
   const [footer,setFooter] = useState<String[]>(["List1","List2"]);
   const [balance,setBalance] = useState<{}[]>([{}]);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [contract,setContract] = useState<any>();
+  const [contractAddress,setContractAddress] = useState(ContractAddress);
+  const [data,setData]=useState<any>(coinData);
+  let total=0;
   useEffect(()=>{
     getAccounts().then((e)=>{
       setBalance([]);
@@ -23,7 +39,7 @@ function AddressBook({coinData}:any) {
         EthBalance(e).then((e)=>{
           setBalance((balance)=>[...balance,{name:"Ethereum",balance:e}])
         });
-        ContractAddress.map((data)=>{
+        contractAddress.map((data)=>{
           EthTokenBalance(e,data.address).then((e)=>{
             setBalance((balance)=>[...balance,{name: data.name,balance:e}])
           })
@@ -31,17 +47,39 @@ function AddressBook({coinData}:any) {
       }
 
     });
+  },[contractAddress]);
 
-  },[]);
+  useEffect(()=>{
+    balance.map((data:{})=>{
+        total= total + balance?.balance;                          
+    })
+  },[balance])
 
   return (
     <div className={styles.mainContainer}>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Enter The Contract Address</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+           <Input onChange={(e)=>{
+             setContract(e.target.value);
+           }} placeholder='Contract Address' size='md' />
+           
+          </ModalBody>
+          <ModalFooter>
+          <Button variant='ghost' onClick={()=>{
+            setContractAddress((contractAddress)=>[...contractAddress,{address:contract,name:contract}])
+            setData((data:any)=>[...data,{name:contract}]);
+          }}>Submit</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
         <section className={styles.sideNavbar}>
           
           <div className={styles.desktopNav}>
               <section className={styles.head}>
-
-
                   <div className={`${styles.logo}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 96 96">
                               <g id="Group_3" data-name="Group 3" transform="translate(-27 -19)">
@@ -64,6 +102,12 @@ function AddressBook({coinData}:any) {
                               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
                       <a>Address Book</a>
+                  </div>
+                  <div className={styles.headList}>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                      </svg>
+                      <a  onClick={onOpen}>Contract Address</a>
                   </div>
               </section>
               <section className={styles.Footer}>
@@ -89,7 +133,8 @@ function AddressBook({coinData}:any) {
                     <div className={styles.bodyHeader}>
                             <p>{address}</p>
                             <div className={styles.infoContainer}>
-
+                              <p>Net</p>
+                              <p>${total}</p>
                             </div>
                     </div>
                     <div className={styles.bodyMain}>
@@ -97,7 +142,7 @@ function AddressBook({coinData}:any) {
                           <p>Portfolio</p>  
                         </nav>
                         <div className={styles.portfolio}>
-                            { coinData.map((data:any)=>(<PortfolioCard  margin='20px' height='75px' effects={true} data={data} balance={balance}/>))}
+                            { data.map((data:any)=>(<PortfolioCard  margin='20px' height='75px' effects={true} data={data} balance={balance}/>))}
                         </div>
                     </div>
             </div>

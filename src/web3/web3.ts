@@ -6,7 +6,7 @@ export const Connect = async () => {
     ethereum?.request<string[]>({ method: "eth_requestAccounts" }).catch((err:any) => console.log(err));
 }
 
-export const ContractAddress =[{address:"0xdAC17F958D2ee523a2206206994597C13D831ec7",name:"tether"},{address:"0xB8c77482e45F1F44dE1745F52C74426C631bDD52",name:"bnb"}] 
+export const ContractAddress =[{address:"0xdAC17F958D2ee523a2206206994597C13D831ec7",name:"tetherclear"},{address:"0xB8c77482e45F1F44dE1745F52C74426C631bDD52",name:"bnb"}] 
 
 export const EthBalance = async (address:string) =>{
   var web3 = new Web3(InfuraUrl);

@@ -17,7 +17,7 @@ function PortfolioCard(props: PortfolioProps) {
 
   return (
     <div className={`${styles.portfolioCard}`+ ( props.effects?` ${styles.portfolioCardHover}`: " ")} style={{margin: `${props.margin}` , height: `${props.height}`}}>
-    <Image  loader={() => props.data.image} src={props.data.image} height="30px" width="30px" />
+    <Image  loader={() => props.data?.image} src={props.data?.image} height="30px" width="30px" />
     <p>{props.data.name}</p>
     {
       props.effects?<p> $ {props.data.current_price*currentBalance}</p>:<p> $ {props.data.current_price}</p>
