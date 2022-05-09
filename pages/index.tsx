@@ -103,7 +103,7 @@ const Home:React.FC = ({coinData}:any) => {
     <div className={`${styles.heroContainer}`}>
             <section className={`${styles.heroBlock}`}>
                 <h1>Your home to <span style={{fontSize: "56px",fontWeight: "600",color:"#784ffe"}}>Web3</span></h1>
-                <p>Manage your entire web3 portfolio from DeFi to NFTs and whatever comes next. Invest in the latest opportunities from one convenient place.</p>
+                <p>Manage your entire web3 portfolio for all your Coins and the ERC-20 Tokens</p>
             </section>
             <section className={`${styles.buttonContainer}`}>
                 <button onClick={()=>{Connect()
