@@ -45,11 +45,11 @@ function AddressBook({coinData}:any) {
         setAddress(e.slice(0,5)+"..."+e.slice(e.length-4,e.length));
 
         EthBalance(e).then((e)=>{
-          setBalance((balance)=>[...balance,{name:"Ethereum",balance:e}])
+          setBalance((balance:any)=>[...balance,{name:"Ethereum",balance:e}])
         });
         contractAddress.map((data)=>{
           EthTokenBalance(e,data.address).then((e)=>{
-            setBalance((balance)=>[...balance,{name: data.name,balance:e}])
+            setBalance((balance:any)=>[...balance,{name: data.name,balance:e}])
           })
         })
       }
