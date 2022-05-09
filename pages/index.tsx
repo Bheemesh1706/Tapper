@@ -4,28 +4,27 @@ import { Connect ,getAccounts,EthBalance,EthTokenBalance} from '../src/web3/web3
 import PortfolioCard from '../src/components/watchlist/PortfolioCard';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
+import Link from 'next/link';
+import { ethereum} from '../src/web3/interface';
+import { useRouter } from 'next/router';
+import { Links } from '../src/interface/interface';
 
 const Home:React.FC = ({coinData}:any) => {
 
-  const [list,setList] = useState<string[]>(["Address Book","Learn","Build"]);
+  const [list,setList] = useState<Links[]>([{value:"Watch List",address:"/watchlist"},{value:"Learn",address:"https://docs.metamask.io/"},{value:"Build",address:"https://rapidapi.com/coingecko/api/coingecko/"}]);
   const [search,setSearch] = useState<boolean>(false);
   const [value,setValue] = useState(coinData);
-  useEffect( () =>{
-      getAccounts().then((e)=>{
-        console.log(e);
-        // EthBalance(e);
-        // EthTokenBalance(e,'0x6b175474e89094c44da98b954eedeac495271d0f');
-      });
-      console.log(coinData)
-  },[])
+  const router = useRouter();
 
   useEffect(()=>{
-      console.log(value);
-  },[value])
+    if(ethereum?.selectedAddress!=null)
+  {
+     router.push("/addressbook")
+  }
+  })
 
-  return (
-  <div className={styles.mainContainer}>
-
+  
+  return (<div className={styles.mainContainer}>
     <div className={`${styles.container} ${styles.navHeader}`}>
       
         <nav className={`${styles.mobileNav}`}>
@@ -85,15 +84,14 @@ const Home:React.FC = ({coinData}:any) => {
   
                     }}/>
                    
-
-                   
               </div>
              
           </section>
 
           <section  className={`${styles.desktopHeader} ${styles.headerConatiner}`} style={{width: "250px"}}>
             {
-              list.map((val,index)=>(<p key={index}>{val}</p>))
+              list.map((val,index)=>(
+              <a href={val.address} key={index}>{val.value}</a>))
             }
           </section>
 
@@ -108,7 +106,11 @@ const Home:React.FC = ({coinData}:any) => {
                 <p>Manage your entire web3 portfolio from DeFi to NFTs and whatever comes next. Invest in the latest opportunities from one convenient place.</p>
             </section>
             <section className={`${styles.buttonContainer}`}>
-                <button onClick={()=>{Connect()}}>Connect Wallet</button>
+                <button onClick={()=>{Connect()
+                   document.location.reload();
+               }}>{
+                  ethereum?.selectedAddress!=null? "Connected":"Connect"
+                }</button>
             </section>
     </div>
 
@@ -117,7 +119,7 @@ const Home:React.FC = ({coinData}:any) => {
           <div className={`${styles.listItem}`}>
             {
               value.map((data:any)=>
-              (<PortfolioCard  margin='0px' height='50px' effects={false} data={data} balance={null}/>))
+              (<PortfolioCard  margin='0px' height='50px' effects={false} data={data} balance={null}  watchlist={false}/>))
             }
           </div>
     </section>}
@@ -136,7 +138,7 @@ export const getServerSideProps: GetServerSideProps = async () =>{
       'X-RapidAPI-Host': 'coingecko.p.rapidapi.com',
       'X-RapidAPI-Key': '0aad8552camsh655068c6e2ac51dp1dcbadjsn6e64f695b2fc'
     },
-    params:{vs_currency: 'usd', order: 'market_cap_desc', per_page: '10', page: '1'}
+    params:{vs_currency: 'usd', order: 'market_cap_desc', per_page: '1000', page: '1'}
   });
 
 

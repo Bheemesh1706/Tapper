@@ -109,13 +109,13 @@
     .inputContainer{
         display: flex;
         height: 100%;
-        width: 100%;
+        width: 40%;
         justify-content: flex-start;
         align-items: center;
         border-radius: 16px;
         background-color: #202A30;
         padding: 20px 10px;
-        margin: 0 50px;
+        margin-right: 25px;
       }
       
       .inputContainer input{
@@ -140,7 +140,7 @@
           height: 25px;
           width: 100%;
           display: flex;
-          justify-content: center;
+          justify-content: space-between;
           align-items: center;
           padding: 35px  0;
           border-bottom: 0.05px solid #CBC3E3;

@@ -3,5 +3,15 @@ export interface PortfolioProps {
     height: string,
     effects: boolean,
     data: any,
-    balance:any
+    balance:any,
+    watchlist: boolean
+}
+
+export interface StatProps {
+    data:any
+}
+
+export interface Links{
+    address:string,
+    value: string
 }
