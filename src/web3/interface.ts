@@ -13,7 +13,7 @@ export const InfuraUrl = "https://mainnet.infura.io/v3/60979ad9b7b445e79e178d081
 
 export const ethereum = typeof window!="undefined" ? window.ethereum as MetaMaskInpageProvider: null;
 
-export const web3 = new Web3(ethereum);
+export const web3 = new Web3(ethereum); 
 
 export const erc20ABI =[
   {
