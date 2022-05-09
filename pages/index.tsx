@@ -4,7 +4,7 @@ import { Connect ,getAccounts,EthBalance,EthTokenBalance} from '../src/web3/web3
 import PortfolioCard from '../src/components/watchlist/PortfolioCard';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
-import Link from 'next/link';
+import MobileSidenav from '../src/components/MobileSidenav';
 import { ethereum} from '../src/web3/interface';
 import { useRouter } from 'next/router';
 import { Links } from '../src/interface/interface';
@@ -13,6 +13,7 @@ const Home:React.FC = ({coinData}:any) => {
 
   const [list,setList] = useState<Links[]>([{value:"Watch List",address:"/watchlist"},{value:"Learn",address:"https://docs.metamask.io/"},{value:"Build",address:"https://rapidapi.com/coingecko/api/coingecko/"}]);
   const [search,setSearch] = useState<boolean>(false);
+  const [nav,setNav] = useState<boolean>(false);
   const [value,setValue] = useState(coinData);
   const router = useRouter();
 
@@ -24,12 +25,11 @@ const Home:React.FC = ({coinData}:any) => {
   })
 
   
-  return (<div className={styles.mainContainer}>
+  return (<div className={styles.mainContainer} >
     <div className={`${styles.container} ${styles.navHeader}`}>
       
-        <nav className={`${styles.mobileNav}`}>
-
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"  className={`${styles.icon}`}>
+       <nav className={`${styles.mobileNav}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"  className={`${styles.icon}`} onClick={()=>setNav(!nav)} onBlur={()=>setNav(false)}>
                   <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
               </svg>
 
@@ -41,12 +41,12 @@ const Home:React.FC = ({coinData}:any) => {
                           </g>
                 </svg>
 
-              <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor" className={`${styles.icon}`} strokeWidth={2}>
+              <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor" className={`${styles.icon}`} strokeWidth={2} onClick={()=>setSearch(true)}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
 
         </nav>
-
+        
         <nav className={`${styles.desktopNav}`}>
 
           <section  className={`${styles.desktopHeader} ${styles.headerConatiner} `}>
@@ -123,6 +123,9 @@ const Home:React.FC = ({coinData}:any) => {
             }
           </div>
     </section>}
+    {
+      nav && <MobileSidenav/>
+    }
   </div>
   )
 }
