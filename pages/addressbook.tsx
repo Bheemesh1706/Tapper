@@ -26,7 +26,7 @@ function AddressBook({coinData}:any) {
   const [address,setAddress] = useState<String>('');
   const [head,setHead] = useState<String[]>(["Home","Address Book"]);
   const [footer,setFooter] = useState<String[]>(["List1","List2"]);
-  const [balance,setBalance] = useState<{}[]>([{}]);
+  const [balance,setBalance] = useState<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [contract,setContract] = useState<any>();
   const [contractAddress,setContractAddress] = useState(ContractAddress);
